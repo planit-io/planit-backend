@@ -8,5 +8,6 @@ data class ActivityDTO(
     val travelDayId: Long?,
     val name: String,
     val description: String?,
-    val time: String?
+    val time: String?,
+    val completed: Boolean = false
 ) : Serializable

@@ -15,5 +15,5 @@ class ActivityEntity : PanacheEntity() {
 
     @ManyToOne
     @JoinColumn(name = "travel_id")
-    var travelEntity : TravelEntity? = null
+    var travel : TravelEntity? = null
 }

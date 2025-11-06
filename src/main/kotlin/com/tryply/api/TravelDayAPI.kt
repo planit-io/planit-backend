@@ -104,7 +104,7 @@ class TravelDayAPI {
 
     @GET
     fun getTravelDays(@PathParam("travelId") travelId: Long): List<TravelDayDTO> {
-        travelDayRepository.find("travel.id", travelId).list().let { travelDayEntities ->
+        travelDayRepository.find(query="travel.id", travelId).list().let { travelDayEntities ->
             return travelDayEntities.map { travelDayEntity ->
                 TravelDayDTO(
                     id = travelDayEntity.id,
