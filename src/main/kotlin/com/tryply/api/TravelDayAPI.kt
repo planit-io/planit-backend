@@ -7,6 +7,7 @@ import com.tryply.model.entity.TravelDayEntity
 import com.tryply.validator.TravelDayValidator
 import com.tryply.repository.TravelDayRepository
 import com.tryply.repository.TravelRepository
+import io.quarkus.panache.common.Sort
 import jakarta.enterprise.context.ApplicationScoped
 import jakarta.transaction.Transactional
 import jakarta.ws.rs.Consumes
@@ -104,7 +105,7 @@ class TravelDayAPI {
 
     @GET
     fun getTravelDays(@PathParam("travelId") travelId: Long): List<TravelDayDTO> {
-        travelDayRepository.find(query="travel.id", travelId).list().let { travelDayEntities ->
+        travelDayRepository.find(query="travel.id", Sort.by("dayNumber", Sort.Direction.Ascending), travelId).list().let { travelDayEntities ->
             return travelDayEntities.map { travelDayEntity ->
                 TravelDayDTO(
                     id = travelDayEntity.id,
@@ -119,14 +120,14 @@ class TravelDayAPI {
     }
 
     @GET
-    @Path("/{dayNumber}")
+    @Path("/{travelDayId}")
     fun getTravelDayByNumber(
         @PathParam("travelId") travelId: Long,
-        @PathParam("dayNumber") dayNumber: Int
+        @PathParam("travelDayId") travelDayId: Long
     ): TravelDayDTO {
         val travelDayEntity = travelDayRepository.find(
-            "travel.id = ?1 and dayNumber = ?2",
-            travelId, dayNumber
+            "travel.id = ?1 and id = ?2",
+            travelId, travelDayId
         ).firstResult() ?: throw NotFoundException("Travel day not found")
 
         return TravelDayDTO(
