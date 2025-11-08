@@ -72,8 +72,12 @@ class TravelDayAPI {
                 name = td.name,
                 description = td.description,
                 travelId = travel.id!!,
-                activities = null
-            ) }
+                activities = null,
+                createDate = td.createdDate,
+                lastUpdateDate = td.lastUpdateDate
+            ) },
+            createDate = travel.createdDate,
+            lastUpdateDate = travel.lastUpdateDate
         )
     }
 
@@ -113,7 +117,9 @@ class TravelDayAPI {
                     name = travelDayEntity.name,
                     description = travelDayEntity.description,
                     travelId = travelId,
-                    activities = null
+                    activities = null,
+                    createDate = travelDayEntity.createdDate,
+                    lastUpdateDate = travelDayEntity.lastUpdateDate
                 )
             }
         }
@@ -136,6 +142,8 @@ class TravelDayAPI {
             name = travelDayEntity.name,
             description = travelDayEntity.description,
             travelId = travelId,
+            createDate = travelDayEntity.createdDate,
+            lastUpdateDate = travelDayEntity.lastUpdateDate,
             activities = travelDayEntity.activityDayEntityList.map
             { activityEntity ->
                 ActivityDTO(
@@ -144,7 +152,10 @@ class TravelDayAPI {
                     description = activityEntity.description,
                     travelId = travelId,
                     travelDayId = travelDayEntity.id!!,
-                    time = activityEntity.time
+                    time = activityEntity.time,
+                    completed = activityEntity.completed,
+                    createDate = activityEntity.createdDate,
+                    lastUpdateDate = activityEntity.lastUpdateDate
                 )
             })
     }

@@ -61,8 +61,12 @@ class TravelAPI {
                 name = it.name,
                 description = it.description,
                 travelId = travel.id!!,
-                activities = null
-            ) }
+                activities = null,
+                createDate = it.createdDate,
+                lastUpdateDate = it.lastUpdateDate
+            ) },
+            createDate = travel.createdDate,
+            lastUpdateDate = travel.lastUpdateDate
         )
     }
 
@@ -78,7 +82,9 @@ class TravelAPI {
                 endDate = travel.endDate,
                 imageUrl = travel.imageUrl,
                 days = travel.days,
-                travelDays = emptyList()
+                travelDays = emptyList(),
+                createDate = travel.createdDate,
+                lastUpdateDate = travel.lastUpdateDate
             )
         }
     }
@@ -102,8 +108,12 @@ class TravelAPI {
                 name = it.name,
                 description = it.description,
                 travelId = travel.id!!,
-                activities = null
-            ) }
+                activities = null,
+                createDate = it.createdDate,
+                lastUpdateDate = it.lastUpdateDate
+            ) },
+            createDate = travel.createdDate,
+            lastUpdateDate = travel.lastUpdateDate
         )
     }
 }

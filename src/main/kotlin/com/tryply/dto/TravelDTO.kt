@@ -12,5 +12,7 @@ data class TravelDTO(
     val endDate: String,
     val imageUrl: String?,
     val days: Int,
-    val travelDays: List<TravelDayDTO>?
+    val travelDays: List<TravelDayDTO>?,
+    val createDate: Long?,
+    val lastUpdateDate: Long?,
 ) : Serializable

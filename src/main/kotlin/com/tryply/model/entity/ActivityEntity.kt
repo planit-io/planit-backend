@@ -7,7 +7,7 @@ import jakarta.persistence.JoinColumn
 import jakarta.persistence.ManyToOne
 
 @Entity
-class ActivityEntity : PanacheEntity() {
+class ActivityEntity : TryPlyEntity() {
     var name: String = ""
     @Column(columnDefinition = "TEXT")
     var description: String = ""

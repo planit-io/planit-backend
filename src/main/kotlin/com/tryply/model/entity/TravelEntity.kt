@@ -8,7 +8,7 @@ import jakarta.persistence.OneToMany
 import java.util.UUID
 
 @Entity
-class TravelEntity : PanacheEntity() {
+class TravelEntity : TryPlyEntity() {
 
     var name: String = ""
     @Column(columnDefinition = "TEXT")

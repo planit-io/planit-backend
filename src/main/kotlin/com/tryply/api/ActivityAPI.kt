@@ -49,7 +49,9 @@ class ActivityAPI {
             completed = activity.completed,
             travelId = travelId,
             travelDayId = null,
-            time = null
+            time = null,
+            createDate = activity.createdDate,
+            lastUpdateDate = activity.lastUpdateDate
         )
 
 
@@ -67,7 +69,9 @@ class ActivityAPI {
                 completed = activity.completed,
                 travelId = travelId,
                 travelDayId = null,
-                time = null
+                time = null,
+                createDate = activity.createdDate,
+                lastUpdateDate = activity.lastUpdateDate
             )
         }
     }
@@ -118,7 +122,9 @@ class ActivityAPI {
             completed = activity.completed,
             travelId = travelId,
             travelDayId = null,
-            time = null
+            time = null,
+            createDate = activity.createdDate,
+            lastUpdateDate = activity.lastUpdateDate
         )
     }
 

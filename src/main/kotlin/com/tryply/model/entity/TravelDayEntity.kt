@@ -10,7 +10,7 @@ import jakarta.persistence.OneToMany
 import kotlin.collections.mutableListOf
 
 @Entity
-class TravelDayEntity : PanacheEntity() {
+class TravelDayEntity : TryPlyEntity() {
 
     var name: String = ""
     @Column(columnDefinition = "TEXT")

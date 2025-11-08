@@ -9,5 +9,7 @@ data class ActivityDTO(
     val name: String,
     val description: String?,
     val time: String?,
-    val completed: Boolean = false
+    val completed: Boolean = false,
+    val createDate: Long?,
+    val lastUpdateDate: Long?,
 ) : Serializable

@@ -8,5 +8,7 @@ data class UserDTO (
     val email: String,
     val firstName: String,
     val lastName: String,
-    val profilePictureUrl: String?
+    val profilePictureUrl: String?,
+    val createDate: Long?,
+    val lastUpdateDate: Long?,
 ) : Serializable

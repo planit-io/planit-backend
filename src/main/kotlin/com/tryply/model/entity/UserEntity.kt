@@ -3,9 +3,10 @@ package com.tryply.model.entity
 import io.quarkus.hibernate.orm.panache.kotlin.PanacheEntity
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
+import jakarta.persistence.PrePersist
 
 @Entity
-class UserEntity : PanacheEntity() {
+class UserEntity : TryPlyEntity() {
 
     @Column(unique = true, nullable = false)
     var username: String = ""

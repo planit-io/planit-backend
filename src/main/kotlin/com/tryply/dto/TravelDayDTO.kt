@@ -8,5 +8,7 @@ data class TravelDayDTO (
     val dayNumber: Int,
     val name: String?,
     val description: String?,
-    val activities: List<ActivityDTO>?
+    val activities: List<ActivityDTO>?,
+    val createDate: Long?,
+    val lastUpdateDate: Long?,
 ) : Serializable

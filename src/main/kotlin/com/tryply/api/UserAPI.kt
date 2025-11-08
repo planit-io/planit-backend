@@ -56,7 +56,9 @@ class UserAPI {
             email = user.email,
             firstName = user.firstName,
             lastName = user.lastName,
-            profilePictureUrl = user.profilePictureUrl
+            profilePictureUrl = user.profilePictureUrl,
+            createDate = user.createdDate,
+            lastUpdateDate = user.lastUpdateDate
         )
     }
 
@@ -69,7 +71,9 @@ class UserAPI {
                 email = user.email,
                 firstName = user.firstName,
                 lastName = user.lastName,
-                profilePictureUrl = user.profilePictureUrl
+                profilePictureUrl = user.profilePictureUrl,
+                createDate = user.createdDate,
+                lastUpdateDate = user.lastUpdateDate
             )
         }
     }
@@ -84,7 +88,9 @@ class UserAPI {
             email = user.email,
             firstName = user.firstName,
             lastName = user.lastName,
-            profilePictureUrl = user.profilePictureUrl
+            profilePictureUrl = user.profilePictureUrl,
+            createDate = user.createdDate,
+            lastUpdateDate = user.lastUpdateDate
         )
     }
 
