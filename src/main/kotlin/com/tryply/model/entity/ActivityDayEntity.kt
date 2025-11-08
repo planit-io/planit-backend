@@ -17,6 +17,6 @@ class ActivityDayEntity : TryPlyEntity() {
 
     @ManyToOne
     @JoinColumn(name = "travel_day_id")
-    var travelDayEntity : TravelDayEntity? = null
+    var travelDay : TravelDayEntity? = null
 
 }

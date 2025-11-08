@@ -1,6 +1,5 @@
 package com.tryply.dto
 
-import java.io.Serializable
 
 data class TravelDayDTO (
     val id: Long?,
@@ -11,4 +10,4 @@ data class TravelDayDTO (
     val activities: List<ActivityDTO>?,
     val createDate: Long?,
     val lastUpdateDate: Long?,
-) : Serializable
+)

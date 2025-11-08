@@ -25,10 +25,10 @@ class ActivityValidator {
         }
     }
 
-    fun validateActivityDayData(name: String, description: String?, time: String?) {
-        validateName(name)
-        validateDescription(description)
-        validateTime(time)
+    fun validateActivityDayData(activityDTO: ActivityDTO) {
+        validateName(activityDTO.name)
+        validateDescription(activityDTO.description)
+        validateTime(activityDTO.time)
     }
 
     fun validateActivityData(activityDTO: ActivityDTO) {

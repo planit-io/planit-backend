@@ -1,6 +1,5 @@
 package com.tryply.dto
 
-import java.io.Serializable
 
 data class ActivityDTO(
     val id: Long?,
@@ -12,4 +11,4 @@ data class ActivityDTO(
     val completed: Boolean = false,
     val createDate: Long?,
     val lastUpdateDate: Long?,
-) : Serializable
+)

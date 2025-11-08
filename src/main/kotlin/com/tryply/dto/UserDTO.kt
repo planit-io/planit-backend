@@ -1,6 +1,5 @@
 package com.tryply.dto
 
-import java.io.Serializable
 
 data class UserDTO (
     val id: Long?,
@@ -11,4 +10,4 @@ data class UserDTO (
     val profilePictureUrl: String?,
     val createDate: Long?,
     val lastUpdateDate: Long?,
-) : Serializable
+)

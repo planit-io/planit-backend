@@ -1,9 +1,10 @@
 package com.tryply.api
 
 import com.tryply.dto.ActivityDTO
-import com.tryply.model.entity.ActivityEntity
+import com.tryply.model.entity.ActivityDayEntity
+import com.tryply.repository.ActivityDayRepository
+import com.tryply.repository.TravelDayRepository
 import com.tryply.validator.ActivityValidator
-import com.tryply.repository.ActivityRepository
 import com.tryply.repository.TravelRepository
 import jakarta.enterprise.context.ApplicationScoped
 import jakarta.ws.rs.Consumes
@@ -18,27 +19,33 @@ import jakarta.ws.rs.Produces
 import jakarta.ws.rs.core.MediaType
 
 @ApplicationScoped
-@Path("/travels/{travelId}/activities")
+@Path("/travels/{travelId}/travelDays/{travelDay}/activities")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-class ActivityAPI {
+class ActivityDayAPI {
 
     val travelRepository: TravelRepository = TravelRepository()
-    val activityRepository = ActivityRepository()
+    val travelDayRepository: TravelDayRepository = TravelDayRepository()
+    val activityDayRepository = ActivityDayRepository()
 
 
     @POST
-    fun createActivity(travelId: Long, activityDTO: ActivityDTO): ActivityDTO {
+    fun createActivityDay(travelId: Long, travelDayId: Long, activityDTO: ActivityDTO): ActivityDTO {
         val activityValidator = ActivityValidator()
 
         val travelEntity = travelRepository.findById(travelId)
-            ?: throw IllegalArgumentException("Travel not found")
+            ?: throw NotFoundException("Travel not found")
 
-        activityValidator.validateActivityData(activityDTO)
-        val activity = ActivityEntity().apply {
+        val travelDayEntity = travelDayRepository.findById(travelDayId)
+            ?: throw NotFoundException("Travel Day not found")
+
+        activityValidator.validateActivityDayData(activityDTO)
+        val activity = ActivityDayEntity().apply {
             name = activityDTO.name
             description = activityDTO.description ?: ""
-            travel = travelEntity
+            time = activityDTO.time ?: ""
+            completed = false
+            travelDay = travelDayEntity
         }
         activity.persistAndFlush()
 
@@ -47,9 +54,9 @@ class ActivityAPI {
             name = activity.name,
             description = activity.description,
             completed = activity.completed,
-            travelId = travelId,
-            travelDayId = null,
-            time = null,
+            travelId = travelEntity.id!!,
+            travelDayId = travelDayEntity.id!!,
+            time = activity.time,
             createDate = activity.createdDate,
             lastUpdateDate = activity.lastUpdateDate
         )
@@ -58,8 +65,8 @@ class ActivityAPI {
     }
 
     @GET
-    fun retrieveActivities(travelId: Long): List<ActivityDTO> {
-        val activities = activityRepository.find("travel.id", travelId).list()
+    fun retrieveActivities(travelId: Long, travelDayId: Long): List<ActivityDTO> {
+        val activities = activityDayRepository.find("travelDay.id = ?1 and travelDay.travel.id = ?2", travelDayId, travelId).list()
 
         return activities.map { activity ->
             ActivityDTO(
@@ -68,8 +75,8 @@ class ActivityAPI {
                 description = activity.description,
                 completed = activity.completed,
                 travelId = travelId,
-                travelDayId = null,
-                time = null,
+                travelDayId = travelDayId,
+                time = activity.time,
                 createDate = activity.createdDate,
                 lastUpdateDate = activity.lastUpdateDate
             )
@@ -78,16 +85,17 @@ class ActivityAPI {
 
     @PUT
     @Path("/{activityId}")
-    fun updateActivity(travelId: Long, activityId: Long, activityDTO: ActivityDTO) {
+    fun updateActivity(travelId: Long, travelDayId: Long, activityId: Long, activityDTO: ActivityDTO) {
         val activityValidator = ActivityValidator()
-        val activity = activityRepository.find(
-            "travel.id = ?1 and id = ?2",
-            travelId, activityId
+        val activity = activityDayRepository.find(
+            "travelDay.travel.id = ?1 and travelDay.id = ?2 and id = ?3",
+            travelId, travelDayId, activityId
         ).firstResult() ?: throw NotFoundException("Activity not found")
         activityValidator.validateActivityData(activityDTO)
         activity.apply {
             name = activityDTO.name
             description = activityDTO.description ?: ""
+            time = activityDTO.time ?: ""
         }
         activity.persist()
 
@@ -95,10 +103,10 @@ class ActivityAPI {
 
     @DELETE
     @Path("/{activityId}")
-    fun deleteActivity(travelId: Long, activityId: Long) {
-        val activity = activityRepository.find(
-            "travel.id = ?1 and id = ?2",
-            travelId, activityId
+    fun deleteActivity(travelId: Long, travelDayId: Long, activityId: Long) {
+        val activity = activityDayRepository.find(
+            "travelDay.travel.id = ?1 and travelDay.id = ?2 and id = ?3",
+            travelId, travelDayId, activityId
         ).firstResult() ?: throw NotFoundException("Activity not found")
 
         activity.delete()
@@ -106,10 +114,10 @@ class ActivityAPI {
 
     @PATCH
     @Path("/{activityId}")
-    fun markActivityCompleted(travelId: Long, activityId: Long, completed: Boolean): ActivityDTO {
-        val activity = activityRepository.find(
-            "travel.id = ?1 and id = ?2",
-            travelId, activityId
+    fun markActivityCompleted(travelId: Long, travelDayId: Long, activityId: Long, completed: Boolean): ActivityDTO {
+        val activity = activityDayRepository.find(
+            "travelDay.travel.id = ?1 and travelDay.id = ?2 and id = ?3",
+            travelId, travelDayId, activityId
         ).firstResult() ?: throw NotFoundException("Activity not found")
 
         activity.completed = completed
@@ -120,9 +128,9 @@ class ActivityAPI {
             name = activity.name,
             description = activity.description,
             completed = activity.completed,
-            travelId = travelId,
-            travelDayId = null,
-            time = null,
+            travelId = activity.travelDay?.travel?.id,
+            travelDayId = activity.travelDay?.id,
+            time = activity.time,
             createDate = activity.createdDate,
             lastUpdateDate = activity.lastUpdateDate
         )
