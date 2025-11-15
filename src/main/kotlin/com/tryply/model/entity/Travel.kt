@@ -21,6 +21,10 @@ class Travel : TryPlyEntity() {
     var travelDayList = mutableListOf<TravelDay>()
     @OneToMany(cascade = [(CascadeType.ALL)])
     var activityList = mutableListOf<Activity>()
+    @OneToMany(cascade = [(CascadeType.ALL)])
+    var costList = mutableListOf<Cost>()
+    @OneToMany(cascade = [(CascadeType.ALL)], mappedBy = "travel")
+    var travelerList = mutableListOf<Traveler>()
 
 
     override fun toString(): String {
