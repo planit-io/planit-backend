@@ -35,11 +35,7 @@ services:
       KEYCLOAK_ADMIN_PASSWORD: admin
     ports:
       - "8081:8080"
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/realms/master"]
-      interval: 15s
-      timeout: 5s
-      retries: 10
+
 
 volumes:
   tryply_pg_data:
