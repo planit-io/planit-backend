@@ -10,9 +10,10 @@ import jakarta.enterprise.context.ApplicationScoped
 import jakarta.inject.Inject
 import jakarta.validation.Valid
 import jakarta.ws.rs.*
+import org.eclipse.microprofile.openapi.annotations.security.SecurityRequirement
 
 @ApplicationScoped
-@Path("/travel/{travelId}/costs")
+@Path("/api/travel/{travelId}/costs")
 @Produces("application/json")
 @Consumes("application/json")
 class CostResource {

@@ -8,9 +8,10 @@ import jakarta.enterprise.context.ApplicationScoped
 import jakarta.inject.Inject
 import jakarta.validation.Valid
 import jakarta.ws.rs.*
+import org.eclipse.microprofile.openapi.annotations.security.SecurityRequirement
 
 @ApplicationScoped
-@Path("travels/{travelId}/refunds")
+@Path("/api/travels/{travelId}/refunds")
 @Produces("application/json")
 @Consumes("application/json")
 class RefundResource {

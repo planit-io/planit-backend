@@ -9,9 +9,10 @@ import jakarta.inject.Inject
 import jakarta.transaction.Transactional
 import jakarta.ws.rs.*
 import jakarta.ws.rs.core.MediaType
+import org.eclipse.microprofile.openapi.annotations.security.SecurityRequirement
 
 @ApplicationScoped
-@Path("/users")
+@Path("/api/users")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @Transactional
@@ -27,6 +28,7 @@ class UserResource {
     }
 
     @POST
+    @Path("/sync")
     fun createUser(userDTO: CreateUserDTO): UserDTO {
         val user = userMapper.toDTO(userDTO)
         return userService.createUser(user)

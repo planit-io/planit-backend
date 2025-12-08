@@ -11,10 +11,11 @@ import jakarta.inject.Inject
 import jakarta.transaction.Transactional
 import jakarta.ws.rs.*
 import jakarta.ws.rs.core.MediaType
+import org.eclipse.microprofile.openapi.annotations.security.SecurityRequirement
 import org.jboss.resteasy.reactive.ResponseStatus
 
 @ApplicationScoped
-@Path("/travels/{travelId}/travelDays")
+@Path("/api/travels/{travelId}/travelDays")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @Transactional
