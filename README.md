@@ -1,6 +1,6 @@
 # 🧠 Plan-It Backend
 
-Backend dell’app **PlanIt** — realizzato con **Quarkus + Kotlin + PostgreSQL**.
+Backend dell’app **Plan-It** — realizzato con **Quarkus + Kotlin + PostgreSQL**.
 
 ## 🚀 Setup rapido
 
