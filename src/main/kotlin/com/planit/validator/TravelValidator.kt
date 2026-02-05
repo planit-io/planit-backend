@@ -1,11 +1,12 @@
 package com.planit.validator
 
 import com.planit.dto.travel.TravelDTO
+import java.time.LocalDate
 
 class TravelValidator {
 
-    fun isValidNumberOfDays(days: Int): Boolean {
-        return days > 0 && days <= 365
+    fun isValidNumberOfDays(startDate: LocalDate, endDate: LocalDate): Boolean {
+        return !endDate.isBefore(startDate)
     }
 
     fun isValidImageUrl(url: String?): Boolean {
@@ -25,7 +26,7 @@ class TravelValidator {
     fun validateTravelData(travelDTO : TravelDTO): Boolean {
         return isValidTravelName(travelDTO.name) &&
                isValidDestination(travelDTO.destination) &&
-               isValidNumberOfDays(travelDTO.days) &&
+               isValidNumberOfDays(travelDTO.startDate, travelDTO.endDate) &&
                isValidImageUrl(travelDTO.imageUrl)
     }
 
