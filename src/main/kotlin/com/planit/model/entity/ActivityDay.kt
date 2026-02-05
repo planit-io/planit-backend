@@ -11,7 +11,7 @@ class ActivityDay : PlanItEntity() {
     var name: String = ""
     @Column(columnDefinition = "TEXT")
     var description: String = ""
-    var time : String = ""
+    var time : Int? = 0
     var completed : Boolean = false
 
     //TODO: add order field to sort activities in a day

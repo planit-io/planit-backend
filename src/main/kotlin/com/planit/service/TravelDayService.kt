@@ -49,9 +49,9 @@ class TravelDayService {
             id = travel.id,
             destination = travel.destination,
             name = travel.name,
-            startDate = travel.startDate,
+            startDate = travel.startDate!!,
             code = travel.code,
-            endDate = travel.endDate,
+            endDate = travel.endDate!!,
             imageUrl = travel.imageUrl,
             days = travel.days,
             travelDays = travel.travelDayList.map { td -> TravelDayDTO(

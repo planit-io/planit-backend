@@ -35,7 +35,7 @@ class ActivityDayService {
         val activity = ActivityDay().apply {
             name = activityDTO.name
             description = activityDTO.description ?: ""
-            time = activityDTO.time ?: ""
+            time = activityDTO.time
             completed = false
             travelDay = travelDayEntity
         }
@@ -92,7 +92,7 @@ class ActivityDayService {
         activity.apply {
             name = activityDTO.name
             description = activityDTO.description ?: ""
-            time = activityDTO.time ?: ""
+            time = activityDTO.time
         }
         activity.persist()
 

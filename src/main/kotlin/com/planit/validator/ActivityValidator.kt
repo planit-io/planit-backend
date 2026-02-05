@@ -19,7 +19,7 @@ class ActivityValidator {
         }
     }
 
-    fun validateTime(time: String?) {
+    fun validateTime(time: Int?) {
         if (time == null) {
             throw IllegalArgumentException("Time must be in HH:mm format")
         }
