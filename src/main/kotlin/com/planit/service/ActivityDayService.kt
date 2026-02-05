@@ -49,8 +49,8 @@ class ActivityDayService {
             travelId = travelEntity.id!!,
             travelDayId = travelDayEntity.id!!,
             time = activity.time,
-            createDate = activity.createdDate,
-            lastUpdateDate = activity.lastUpdateDate
+            createDate = activity.createdDate.toEpochMilli(),
+            lastUpdateDate = activity.lastUpdateDate.toEpochMilli()
         )
 
 
@@ -71,8 +71,8 @@ class ActivityDayService {
                 travelId = travelId,
                 travelDayId = travelDayId,
                 time = activity.time,
-                createDate = activity.createdDate,
-                lastUpdateDate = activity.lastUpdateDate
+                createDate = activity.createdDate.toEpochMilli(),
+                lastUpdateDate = activity.lastUpdateDate.toEpochMilli()
             )
         }
     }
@@ -133,8 +133,8 @@ class ActivityDayService {
             travelId = activity.travelDay?.travel?.id,
             travelDayId = activity.travelDay?.id,
             time = activity.time,
-            createDate = activity.createdDate,
-            lastUpdateDate = activity.lastUpdateDate
+            createDate = activity.createdDate.toEpochMilli(),
+            lastUpdateDate = activity.lastUpdateDate.toEpochMilli()
         )
     }
 

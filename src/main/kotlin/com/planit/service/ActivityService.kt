@@ -40,8 +40,8 @@ class ActivityService {
             travelId = travelId,
             travelDayId = null,
             time = null,
-            createDate = activity.createdDate,
-            lastUpdateDate = activity.lastUpdateDate
+            createDate = activity.createdDate.toEpochMilli(),
+            lastUpdateDate = activity.lastUpdateDate.toEpochMilli()
         )
 
 
@@ -59,8 +59,8 @@ class ActivityService {
                 travelId = travelId,
                 travelDayId = null,
                 time = null,
-                createDate = activity.createdDate,
-                lastUpdateDate = activity.lastUpdateDate
+                createDate = activity.createdDate.toEpochMilli(),
+                lastUpdateDate = activity.lastUpdateDate.toEpochMilli()
             )
         }
     }
@@ -106,8 +106,8 @@ class ActivityService {
             travelId = travelId,
             travelDayId = null,
             time = null,
-            createDate = activity.createdDate,
-            lastUpdateDate = activity.lastUpdateDate
+            createDate = activity.createdDate.toEpochMilli(),
+            lastUpdateDate = activity.lastUpdateDate.toEpochMilli()
         )
     }
 

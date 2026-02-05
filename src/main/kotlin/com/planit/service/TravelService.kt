@@ -51,11 +51,11 @@ class TravelService {
                 description = it.description,
                 travelId = travel.id!!,
                 activities = null,
-                createDate = it.createdDate,
-                lastUpdateDate = it.lastUpdateDate
+                createDate = it.createdDate.toEpochMilli(),
+                lastUpdateDate = it.lastUpdateDate.toEpochMilli()
             ) },
-            createDate = travel.createdDate,
-            lastUpdateDate = travel.lastUpdateDate
+            createDate = travel.createdDate.toEpochMilli(),
+            lastUpdateDate = travel.lastUpdateDate.toEpochMilli()
         )
     }
 
@@ -72,8 +72,8 @@ class TravelService {
                 imageUrl = travel.imageUrl,
                 days = travel.days,
                 travelDays = emptyList(),
-                createDate = travel.createdDate,
-                lastUpdateDate = travel.lastUpdateDate
+                createDate = travel.createdDate.toEpochMilli(),
+                lastUpdateDate = travel.lastUpdateDate.toEpochMilli()
             )
         }
     }
@@ -96,11 +96,11 @@ class TravelService {
                 description = it.description,
                 travelId = travel.id!!,
                 activities = null,
-                createDate = it.createdDate,
-                lastUpdateDate = it.lastUpdateDate
+                createDate = it.createdDate.toEpochMilli(),
+                lastUpdateDate = it.lastUpdateDate.toEpochMilli()
             ) },
-            createDate = travel.createdDate,
-            lastUpdateDate = travel.lastUpdateDate
+            createDate = travel.createdDate.toEpochMilli(),
+            lastUpdateDate = travel.lastUpdateDate.toEpochMilli()
         )
     }
 }

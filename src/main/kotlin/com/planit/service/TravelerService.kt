@@ -40,8 +40,8 @@ class TravelerService {
             username = user.username,
             role = traveler.role,
             travelId = travel.id!!,
-            createdDate = traveler.createdDate,
-            lastUpdatedDate = traveler.lastUpdateDate
+            createdDate = traveler.createdDate.toEpochMilli(),
+            lastUpdatedDate = traveler.lastUpdateDate.toEpochMilli()
         )
 
     }
@@ -53,8 +53,8 @@ class TravelerService {
                 username = traveler.user.username,
                 role = traveler.role,
                 travelId = traveler.travel.id!!,
-                createdDate = traveler.createdDate,
-                lastUpdatedDate = traveler.lastUpdateDate
+                createdDate = traveler.createdDate.toEpochMilli(),
+                lastUpdatedDate = traveler.lastUpdateDate.toEpochMilli()
             )
         }
     }
@@ -66,8 +66,8 @@ class TravelerService {
             username = traveler.user.username,
             role = traveler.role,
             travelId = traveler.travel.id!!,
-            createdDate = traveler.createdDate,
-            lastUpdatedDate = traveler.lastUpdateDate
+            createdDate = traveler.createdDate.toEpochMilli(),
+            lastUpdatedDate = traveler.lastUpdateDate.toEpochMilli()
         )
     }
 

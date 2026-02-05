@@ -61,11 +61,11 @@ class TravelDayService {
                 description = td.description,
                 travelId = travel.id!!,
                 activities = null,
-                createDate = td.createdDate,
-                lastUpdateDate = td.lastUpdateDate
+                createDate = td.createdDate.toEpochMilli(),
+                lastUpdateDate = td.lastUpdateDate.toEpochMilli()
             ) },
-            createDate = travel.createdDate,
-            lastUpdateDate = travel.lastUpdateDate
+            createDate = travel.createdDate.toEpochMilli(),
+            lastUpdateDate = travel.lastUpdateDate.toEpochMilli()
         )
     }
 
@@ -102,8 +102,8 @@ class TravelDayService {
                     description = travelDayEntity.description,
                     travelId = travelId,
                     activities = null,
-                    createDate = travelDayEntity.createdDate,
-                    lastUpdateDate = travelDayEntity.lastUpdateDate
+                    createDate = travelDayEntity.createdDate.toEpochMilli(),
+                    lastUpdateDate = travelDayEntity.lastUpdateDate.toEpochMilli()
                 )
             }
         }
@@ -124,8 +124,8 @@ class TravelDayService {
             name = travelDayEntity.name,
             description = travelDayEntity.description,
             travelId = travelId,
-            createDate = travelDayEntity.createdDate,
-            lastUpdateDate = travelDayEntity.lastUpdateDate,
+            createDate = travelDayEntity.createdDate.toEpochMilli(),
+            lastUpdateDate = travelDayEntity.lastUpdateDate.toEpochMilli(),
             activities = travelDayEntity.activityDayList.map
             { activityEntity ->
                 ActivityDTO(
@@ -136,8 +136,8 @@ class TravelDayService {
                     travelDayId = travelDayEntity.id!!,
                     time = activityEntity.time,
                     completed = activityEntity.completed,
-                    createDate = activityEntity.createdDate,
-                    lastUpdateDate = activityEntity.lastUpdateDate
+                    createDate = activityEntity.createdDate.toEpochMilli(),
+                    lastUpdateDate = activityEntity.lastUpdateDate.toEpochMilli()
                 )
             })
     }

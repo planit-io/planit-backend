@@ -50,8 +50,8 @@ class UserService {
             firstName = user.firstName,
             lastName = user.lastName,
             profilePictureUrl = user.profilePictureUrl,
-            createDate = user.createdDate,
-            lastUpdateDate = user.lastUpdateDate,
+            createDate = user.createdDate.toEpochMilli(),
+            lastUpdateDate = user.lastUpdateDate.toEpochMilli(),
             keycloakId = user.keycloakId,
         )
     }
@@ -65,8 +65,8 @@ class UserService {
                 firstName = user.firstName,
                 lastName = user.lastName,
                 profilePictureUrl = user.profilePictureUrl,
-                createDate = user.createdDate,
-                lastUpdateDate = user.lastUpdateDate,
+                createDate = user.createdDate.toEpochMilli(),
+                lastUpdateDate = user.lastUpdateDate.toEpochMilli(),
                 keycloakId = user.keycloakId
             )
         }
@@ -81,8 +81,8 @@ class UserService {
             firstName = user.firstName,
             lastName = user.lastName,
             profilePictureUrl = user.profilePictureUrl,
-            createDate = user.createdDate,
-            lastUpdateDate = user.lastUpdateDate,
+            createDate = user.createdDate.toEpochMilli(),
+            lastUpdateDate = user.lastUpdateDate.toEpochMilli(),
             keycloakId = user.keycloakId
         )
     }

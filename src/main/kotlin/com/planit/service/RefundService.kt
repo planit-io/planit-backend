@@ -71,8 +71,8 @@ class RefundService {
                 )
             },
             payedBy = cost.payer.user.username,
-            createdDate = cost.createdDate,
-            lastUpdatedDate = cost.lastUpdateDate,
+            createdDate = cost.createdDate.toEpochMilli(),
+            lastUpdatedDate = cost.lastUpdateDate.toEpochMilli(),
             id = cost.id!!,
             date = cost.date,
             travelId = travel.id!!,
