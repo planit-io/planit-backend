@@ -1,8 +1,10 @@
 package com.planit.resource
 
 import com.planit.dto.travel.CreateTravelDTO
+import com.planit.dto.travel.RetrieveTravelDTO
 import com.planit.dto.travel.TravelDTO
 import com.planit.mapper.TravelMapper
+import com.planit.model.entity.Travel
 import com.planit.service.TravelService
 import jakarta.enterprise.context.ApplicationScoped
 import jakarta.inject.Inject
@@ -36,8 +38,8 @@ class TravelResource {
     }
 
     @GET
-    fun getAllTravels(): List<TravelDTO> {
-        return travelService.getAllTravels()
+    fun getAllTravels(@BeanParam retrieveTravelDto: RetrieveTravelDTO): List<TravelDTO> {
+        return travelService.getAllTravels(retrieveTravelDto)
     }
 
     @GET
