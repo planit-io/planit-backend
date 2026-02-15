@@ -6,7 +6,7 @@ data class ActivityDTO(
     val travelDayId: Long?,
     val name: String,
     val description: String?,
-    val time: Int?,
+    val time: String?,
     val completed: Boolean = false,
     val createDate: Long?,
     val lastUpdateDate: Long?,

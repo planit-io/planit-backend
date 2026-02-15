@@ -3,6 +3,7 @@ package com.planit.model.entity
 import jakarta.persistence.CascadeType
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
+import jakarta.persistence.FetchType
 import jakarta.persistence.ManyToOne
 import jakarta.persistence.OneToMany
 import kotlin.collections.mutableListOf
@@ -17,7 +18,7 @@ class TravelDay : PlanItEntity() {
 
     @ManyToOne
     lateinit var travel : Travel
-    @OneToMany(cascade = [(CascadeType.ALL)])
+    @OneToMany(cascade = [(CascadeType.ALL)], fetch = FetchType.EAGER, mappedBy = "travelDay")
     var activityDayList = mutableListOf<ActivityDay>()
 
 }

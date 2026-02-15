@@ -2,6 +2,7 @@ package com.planit.resource
 
 import com.planit.dto.activity.ActivityDTO
 import com.planit.dto.activity.CreateActivityDTO
+import com.planit.dto.activity.CreateActivityDayDTO
 import com.planit.dto.activity.UpdateActivityDTO
 import com.planit.mapper.ActivityMapper
 import com.planit.service.ActivityDayService
@@ -31,7 +32,7 @@ class ActivityDayResource {
     fun createActivityDay(
         @PathParam("travelId") travelId: Long,
         @PathParam("travelDayId") travelDayId: Long,
-        activityDTO: CreateActivityDTO
+        activityDTO: CreateActivityDayDTO
     ): ActivityDTO {
         val activity = activityMapper.toDTO(activityDTO)
         return activityDayService.createActivityDay(travelId, travelDayId, activity)

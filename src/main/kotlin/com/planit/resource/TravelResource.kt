@@ -3,6 +3,7 @@ package com.planit.resource
 import com.planit.dto.travel.CreateTravelDTO
 import com.planit.dto.travel.RetrieveTravelDTO
 import com.planit.dto.travel.TravelDTO
+import com.planit.dto.travel.UpdateTravelDTO
 import com.planit.mapper.TravelMapper
 import com.planit.model.entity.Travel
 import com.planit.service.TravelService
@@ -46,5 +47,13 @@ class TravelResource {
     @Path("/{travelId}")
     fun getTravelById(@PathParam("travelId") travelId: Long): TravelDTO {
         return travelService.getTravelById(travelId)
+    }
+
+    @PUT
+    @Path("/{travelId}")
+    @ResponseStatus(HttpStatus.SC_NO_CONTENT)
+    fun updateTravel(@PathParam("travelId") travelId: Long, travelDTO: UpdateTravelDTO) {
+        val travel = travelMapper.toDTO(travelDTO)
+        travelService.updateTravel(travelId, travel)
     }
 }

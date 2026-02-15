@@ -19,8 +19,12 @@ class ActivityValidator {
         }
     }
 
-    fun validateTime(time: Int?) {
+    fun validateTime(time: String?) {
         if (time == null) {
+            return
+        }
+        val regex = "^([01]\\d|2[0-3]):([0-5]\\d)$".toRegex()
+        if (!regex.matches(time)) {
             throw IllegalArgumentException("Time must be in HH:mm format")
         }
     }

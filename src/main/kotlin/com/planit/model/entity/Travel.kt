@@ -12,6 +12,7 @@ class Travel : PlanItEntity() {
 
     var name: String = ""
     @Column(columnDefinition = "TEXT")
+    var description: String? = null
     var destination: String = ""
     var code: String = ""
     @Column(columnDefinition = "DATE")
@@ -20,18 +21,19 @@ class Travel : PlanItEntity() {
     var endDate: LocalDate? = null
     var imageUrl: String? = null
     var days: Int = 1
-    @OneToMany(cascade = [(CascadeType.ALL)])
+
+    @OneToMany(cascade = [(CascadeType.ALL)], orphanRemoval = true, mappedBy = "travel")
     var travelDayList = mutableListOf<TravelDay>()
-    @OneToMany(cascade = [(CascadeType.ALL)])
+    @OneToMany(cascade = [(CascadeType.ALL)], orphanRemoval = true)
     var activityList = mutableListOf<Activity>()
-    @OneToMany(cascade = [(CascadeType.ALL)])
+    @OneToMany(cascade = [(CascadeType.ALL)], orphanRemoval = true)
     var costList = mutableListOf<Cost>()
-    @OneToMany(cascade = [(CascadeType.ALL)], mappedBy = "travel")
+    @OneToMany(cascade = [(CascadeType.ALL)], mappedBy = "travel", orphanRemoval = true)
     var travelerList = mutableListOf<Traveler>()
 
 
     override fun toString(): String {
-        return "TravelEntity(id=$id, destination='$destination', name='$name', code=$code, startDate='$startDate', endDate='$endDate')"
+        return "TravelEntity(id=$id, description='$description' destination='$destination', name='$name', code=$code, startDate='$startDate', endDate='$endDate')"
     }
 
     fun generateCode() {

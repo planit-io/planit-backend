@@ -31,6 +31,7 @@ class TravelService (
         }
 
         val travel = Travel().apply {
+            description = travelDTO.description
             destination = travelDTO.destination
             name = travelDTO.name
             startDate = travelDTO.startDate
@@ -55,6 +56,7 @@ class TravelService (
         return TravelDTO(
             id = travel.id,
             destination = travel.destination,
+            description = travel.description,
             name = travel.name,
             startDate = travel.startDate!!,
             code = travel.code,
@@ -84,6 +86,7 @@ class TravelService (
         return travels.map { travel ->
             TravelDTO(
                 id = travel.id,
+                description = travel.description?.substring(20) + "...",
                 destination = travel.destination,
                 name = travel.name,
                 code = travel.code,
@@ -102,6 +105,7 @@ class TravelService (
         val travel = travelRepository.findById(travelId) ?: throw NotFoundException("Travel with id $travelId not found")
         return TravelDTO(
             id = travel.id,
+            description = travel.description,
             destination = travel.destination,
             name = travel.name,
             code = travel.code,
@@ -119,6 +123,46 @@ class TravelService (
                 createDate = it.createdDate.toEpochMilli(),
                 lastUpdateDate = it.lastUpdateDate.toEpochMilli()
             ) },
+            createDate = travel.createdDate.toEpochMilli(),
+            lastUpdateDate = travel.lastUpdateDate.toEpochMilli()
+        )
+    }
+
+    fun updateTravel(travelId: Long, travelDTO: TravelDTO): TravelDTO {
+        val travel = travelRepository.findById(travelId) ?: throw NotFoundException("Travel with id $travelId not found")
+
+        val travelValidator = TravelValidator()
+        if (!travelValidator.validateTravelData(travelDTO)) {
+            throw IllegalArgumentException("Invalid travel data")
+        }
+
+        val areDateChanged = travel.startDate != travelDTO.startDate || travel.endDate != travelDTO.endDate
+
+        travel.apply {
+            description = travelDTO.description
+            destination = travelDTO.destination
+            name = travelDTO.name
+            startDate = travelDTO.startDate
+            endDate = travelDTO.endDate
+            imageUrl = travelDTO.imageUrl
+        }
+
+        if (areDateChanged) {
+            travel.generateTravelDays()
+        }
+        travel.persist()
+
+        return TravelDTO(
+            id = travel.id,
+            description = travel.description,
+            destination = travel.destination,
+            name = travel.name,
+            code = travel.code,
+            startDate = travel.startDate!!,
+            endDate = travel.endDate!!,
+            imageUrl = travel.imageUrl,
+            days = travel.days,
+            travelDays = null,
             createDate = travel.createdDate.toEpochMilli(),
             lastUpdateDate = travel.lastUpdateDate.toEpochMilli()
         )

@@ -5,6 +5,7 @@ import java.time.LocalDate
 
 data class TravelDTO(
     val id: Long?,
+    val description: String?,
     val destination: String,
     val name: String,
     val code: String?,

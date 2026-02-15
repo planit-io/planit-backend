@@ -11,6 +11,7 @@ import io.quarkus.panache.common.Sort
 import jakarta.enterprise.context.ApplicationScoped
 import jakarta.transaction.Transactional
 import jakarta.ws.rs.NotFoundException
+import org.hibernate.Hibernate
 
 @ApplicationScoped
 @Transactional
@@ -47,6 +48,7 @@ class TravelDayService {
 
         return TravelDTO(
             id = travel.id,
+            description = travel.description ?: "",
             destination = travel.destination,
             name = travel.name,
             startDate = travel.startDate!!,
@@ -101,7 +103,19 @@ class TravelDayService {
                     name = travelDayEntity.name,
                     description = travelDayEntity.description,
                     travelId = travelId,
-                    activities = null,
+                    activities = travelDayEntity.activityDayList.map { activity ->
+                        ActivityDTO(
+                            id = activity.id!!,
+                            name = activity.name,
+                            description = activity.description,
+                            completed = activity.completed,
+                            travelId = travelId,
+                            travelDayId = travelDayEntity.id,
+                            time = activity.time,
+                            createDate = activity.createdDate.toEpochMilli(),
+                            lastUpdateDate = activity.lastUpdateDate.toEpochMilli()
+                        )
+                    },
                     createDate = travelDayEntity.createdDate.toEpochMilli(),
                     lastUpdateDate = travelDayEntity.lastUpdateDate.toEpochMilli()
                 )
