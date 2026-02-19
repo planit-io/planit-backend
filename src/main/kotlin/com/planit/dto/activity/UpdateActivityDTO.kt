@@ -1,3 +1,7 @@
 package com.planit.dto.activity
 
-class UpdateActivityDTO()
+data class UpdateActivityDTO(
+    val name: String,
+    val description: String?,
+    val time: String?,
+)

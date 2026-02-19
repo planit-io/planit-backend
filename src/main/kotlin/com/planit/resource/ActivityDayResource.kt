@@ -73,7 +73,8 @@ class ActivityDayResource {
     fun markActivityCompleted(
         @PathParam("travelId") travelId: Long,
         @PathParam("travelDayId") travelDayId: Long,
-        @PathParam("activityId") activityId: Long, completed: Boolean
+        @PathParam("activityId") activityId: Long,
+        completed: Boolean
     ): ActivityDTO {
         return activityDayService.markActivityCompleted(travelId, travelDayId, activityId, completed)
     }
