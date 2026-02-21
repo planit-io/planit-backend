@@ -33,11 +33,11 @@ class TravelDayResource {
     @POST
     fun createTravelDay(
         @PathParam("travelId") travelId: Long,
-        travelDayDTO: CreateTravelDayDTO
+        travelDayDTO: CreateTravelDayDTO,
     ): TravelDTO {
-        val travelDay = travelDayMapper.toDTO(travelDayDTO)
-        return travelDayService.createTravelDay(travelId, travelDay)
+        return travelDayService.createTravelDay(travelId, travelDayDTO.day)
     }
+
 
     @PUT
     @Path("/{travelDayId}")

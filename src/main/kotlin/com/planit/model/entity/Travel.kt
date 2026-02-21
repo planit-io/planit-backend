@@ -4,6 +4,9 @@ import jakarta.persistence.CascadeType
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.OneToMany
+import jakarta.persistence.OrderBy
+import org.hibernate.annotations.Fetch
+import org.hibernate.annotations.FetchMode
 import java.time.LocalDate
 import java.util.*
 
@@ -23,6 +26,7 @@ class Travel : PlanItEntity() {
     var days: Int = 1
 
     @OneToMany(cascade = [(CascadeType.ALL)], orphanRemoval = true, mappedBy = "travel")
+    @OrderBy("dayNumber ASC")
     var travelDayList = mutableListOf<TravelDay>()
     @OneToMany(cascade = [(CascadeType.ALL)], orphanRemoval = true)
     var activityList = mutableListOf<Activity>()

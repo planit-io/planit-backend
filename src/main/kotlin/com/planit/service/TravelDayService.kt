@@ -23,22 +23,34 @@ class TravelDayService {
 
     fun createTravelDay(
         travelId: Long,
-        travelDayDTO: TravelDayDTO
+        day: Int
     ): TravelDTO {
 
-        val travelDayValidator = TravelDayValidator()
-        if (!travelDayValidator.validateTravelDayData(travelDayDTO)) {
-            throw IllegalArgumentException("Invalid travel day data")
-        }
 
         val travel = travelRepository.find("id", travelId).firstResult()
             ?: throw NotFoundException("Travel not found")
 
-        travel.days += 1
 
-        val travelDay = TravelDay()
-        travelDay.dayNumber = travel.days + 1
-        travelDay.travel = travel
+        if (travel.days < day) {
+            throw IllegalArgumentException("Day number cannot be greater than total days of the travel")
+        }
+
+        // Move all existing travel days with dayNumber >= the new day up by 1
+        val existingTravelDays = travelDayRepository.find("travel.id = ?1 and dayNumber >= ?2", travelId, day).list()
+        existingTravelDays.forEach { it.dayNumber += 1 }
+        travelDayRepository.persist(existingTravelDays)
+
+        val travelDay = TravelDay().apply {
+            this.travel = travel
+            this.dayNumber = day
+        }
+
+        if (day == 1) {
+            travel.startDate = travel.startDate!!.minusDays(1)
+        } else if (day == travel.days) {
+            travel.endDate = travel.endDate!!.plusDays(1)
+        }
+
         travel.travelDayList.add(travelDay)
 
 
