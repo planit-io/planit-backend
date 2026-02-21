@@ -38,8 +38,6 @@ class TravelDayService {
 
         val travelDay = TravelDay()
         travelDay.dayNumber = travel.days + 1
-        travelDay.name = travelDayDTO.name!!
-        travelDay.description = travelDayDTO.description!!
         travelDay.travel = travel
         travel.travelDayList.add(travelDay)
 
@@ -59,8 +57,7 @@ class TravelDayService {
             travelDays = travel.travelDayList.map { td -> TravelDayDTO(
                 id = td.id,
                 dayNumber = td.dayNumber,
-                name = td.name,
-                description = td.description,
+                date = travel.startDate!!.plusDays((td.dayNumber - 1).toLong()),
                 travelId = travel.id!!,
                 activities = null,
                 createDate = td.createdDate.toEpochMilli(),
@@ -86,10 +83,6 @@ class TravelDayService {
             throw IllegalArgumentException("Invalid travel day data")
         }
 
-        travelDayEntity.apply {
-            name = travelDayDTO.name!!
-            description = travelDayDTO.description!!
-        }
 
         travelDayEntity.persist()
     }
@@ -100,8 +93,6 @@ class TravelDayService {
                 TravelDayDTO(
                     id = travelDayEntity.id,
                     dayNumber = travelDayEntity.dayNumber,
-                    name = travelDayEntity.name,
-                    description = travelDayEntity.description,
                     travelId = travelId,
                     activities = travelDayEntity.activityDayList.map { activity ->
                         ActivityDTO(
@@ -117,7 +108,8 @@ class TravelDayService {
                         )
                     },
                     createDate = travelDayEntity.createdDate.toEpochMilli(),
-                    lastUpdateDate = travelDayEntity.lastUpdateDate.toEpochMilli()
+                    lastUpdateDate = travelDayEntity.lastUpdateDate.toEpochMilli(),
+                    date = travelDayEntity.travel.startDate!!.plusDays((travelDayEntity.dayNumber - 1).toLong()),
                 )
             }
         }
@@ -135,11 +127,10 @@ class TravelDayService {
         return TravelDayDTO(
             id = travelDayEntity.id,
             dayNumber = travelDayEntity.dayNumber,
-            name = travelDayEntity.name,
-            description = travelDayEntity.description,
             travelId = travelId,
             createDate = travelDayEntity.createdDate.toEpochMilli(),
             lastUpdateDate = travelDayEntity.lastUpdateDate.toEpochMilli(),
+            date = travelDayEntity.travel.startDate!!.plusDays((travelDayEntity.dayNumber - 1).toLong()),
             activities = travelDayEntity.activityDayList.map
             { activityEntity ->
                 ActivityDTO(

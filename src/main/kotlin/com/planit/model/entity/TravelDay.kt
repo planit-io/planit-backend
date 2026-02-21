@@ -11,9 +11,6 @@ import kotlin.collections.mutableListOf
 @Entity
 class TravelDay : PlanItEntity() {
 
-    var name: String = ""
-    @Column(columnDefinition = "TEXT")
-    var description: String = ""
     var dayNumber : Int = 0
 
     @ManyToOne

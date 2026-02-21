@@ -66,12 +66,11 @@ class TravelService (
             travelDays = travel.travelDayList.map {TravelDayDTO(
                 id = it.id,
                 dayNumber = it.dayNumber,
-                name = it.name,
-                description = it.description,
                 travelId = travel.id!!,
                 activities = null,
                 createDate = it.createdDate.toEpochMilli(),
-                lastUpdateDate = it.lastUpdateDate.toEpochMilli()
+                lastUpdateDate = it.lastUpdateDate.toEpochMilli(),
+                date = travel.startDate!!.plusDays((it.dayNumber - 1).toLong()),
             ) },
             createDate = travel.createdDate.toEpochMilli(),
             lastUpdateDate = travel.lastUpdateDate.toEpochMilli()
@@ -86,7 +85,7 @@ class TravelService (
         return travels.map { travel ->
             TravelDTO(
                 id = travel.id,
-                description = travel.description?.substring(20) + "...",
+                description = travel.description,
                 destination = travel.destination,
                 name = travel.name,
                 code = travel.code,
@@ -116,12 +115,11 @@ class TravelService (
             travelDays = travel.travelDayList.map {TravelDayDTO(
                 id = it.id,
                 dayNumber = it.dayNumber,
-                name = it.name,
-                description = it.description,
                 travelId = travel.id!!,
                 activities = null,
                 createDate = it.createdDate.toEpochMilli(),
-                lastUpdateDate = it.lastUpdateDate.toEpochMilli()
+                lastUpdateDate = it.lastUpdateDate.toEpochMilli(),
+                date = travel.startDate!!.plusDays((it.dayNumber - 1).toLong()),
             ) },
             createDate = travel.createdDate.toEpochMilli(),
             lastUpdateDate = travel.lastUpdateDate.toEpochMilli()

@@ -49,8 +49,6 @@ class Travel : PlanItEntity() {
         for (i in 1..days) {
             val travelDay = TravelDay()
             travelDay.dayNumber = i
-            travelDay.name = "Day $i"
-            travelDay.description = ""
             travelDay.travel = this
             travelDayList.add(travelDay)
         }
