@@ -10,9 +10,11 @@ import com.planit.repository.TravelRepository
 import com.planit.repository.TravelerRepository
 import com.planit.utils.CostUtils
 import jakarta.enterprise.context.ApplicationScoped
+import jakarta.transaction.Transactional
 import jakarta.ws.rs.NotFoundException
 
 @ApplicationScoped
+@Transactional
 class RefundService {
 
     private val costRepository = CostRepository()

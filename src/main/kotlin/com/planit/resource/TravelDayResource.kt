@@ -65,4 +65,15 @@ class TravelDayResource {
         return travelDayService.getTravelDayByNumber(travelId, travelDayId)
     }
 
+    @PUT
+    @Path("/{travelDayId}/move")
+    @ResponseStatus(204)
+    fun moveTravelDay(
+        @PathParam("travelId") travelId: Long,
+        @PathParam("travelDayId") travelDayId: Long,
+        @QueryParam("newDayNumber") newDayNumber: Int
+    ) {
+        travelDayService.moveTravelDay(travelId, travelDayId, newDayNumber)
+    }
+
 }

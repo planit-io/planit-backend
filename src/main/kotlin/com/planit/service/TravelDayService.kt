@@ -31,14 +31,16 @@ class TravelDayService {
             ?: throw NotFoundException("Travel not found")
 
 
-        if (travel.days < day) {
-            throw IllegalArgumentException("Day number cannot be greater than total days of the travel")
+        if (travel.travelDayList.size + 1 < day) {
+            throw IllegalArgumentException("Day number cannot be greater than new total days of the travel")
         }
 
         // Move all existing travel days with dayNumber >= the new day up by 1
         val existingTravelDays = travelDayRepository.find("travel.id = ?1 and dayNumber >= ?2", travelId, day).list()
-        existingTravelDays.forEach { it.dayNumber += 1 }
-        travelDayRepository.persist(existingTravelDays)
+        if (!existingTravelDays.isEmpty()){
+            existingTravelDays.forEach { it.dayNumber += 1 }
+            travelDayRepository.persist(existingTravelDays)
+        }
 
         val travelDay = TravelDay().apply {
             this.travel = travel
@@ -47,7 +49,7 @@ class TravelDayService {
 
         if (day == 1) {
             travel.startDate = travel.startDate!!.minusDays(1)
-        } else if (day == travel.days) {
+        } else {
             travel.endDate = travel.endDate!!.plusDays(1)
         }
 
@@ -65,7 +67,7 @@ class TravelDayService {
             code = travel.code,
             endDate = travel.endDate!!,
             imageUrl = travel.imageUrl,
-            days = travel.days,
+            days = travel.travelDayList.size,
             travelDays = travel.travelDayList.map { td -> TravelDayDTO(
                 id = td.id,
                 dayNumber = td.dayNumber,
@@ -157,6 +159,52 @@ class TravelDayService {
                     lastUpdateDate = activityEntity.lastUpdateDate.toEpochMilli()
                 )
             })
+    }
+
+    fun moveTravelDay(
+        travelId: Long,
+        travelDayId: Long,
+        newDayNumber: Int
+    ) {
+        val travel = travelRepository.findById(travelId) ?: throw NotFoundException("Travel not found")
+        val travelDay = travelDayRepository.findById(travelDayId) ?: throw NotFoundException("Travel day not found")
+
+        if (newDayNumber < 1 || newDayNumber > travel.travelDayList.size) {
+            throw IllegalArgumentException("New day number must be between 1 and total days of the travel")
+        }
+
+        val oldDayNumber = travelDay.dayNumber
+
+        if (oldDayNumber == newDayNumber) {
+            return // No change needed
+        }
+
+        // Move other travel days to make room for the moved day
+        if (newDayNumber < oldDayNumber) {
+            // Moving up: shift down other days between new and old position
+            val affectedDays = travelDayRepository.find(
+                "travel.id = ?1 and dayNumber >= ?2 and dayNumber < ?3",
+                travelId,
+                newDayNumber,
+                oldDayNumber
+            ).list()
+            affectedDays.forEach { it.dayNumber += 1 }
+            travelDayRepository.persist(affectedDays)
+        } else {
+            // Moving down: shift up other days between old and new position
+            val affectedDays = travelDayRepository.find(
+                "travel.id = ?1 and dayNumber > ?2 and dayNumber <= ?3",
+                travelId,
+                oldDayNumber,
+                newDayNumber
+            ).list()
+            affectedDays.forEach { it.dayNumber -= 1 }
+            travelDayRepository.persist(affectedDays)
+        }
+
+        // Update the moved day's number
+        travelDay.dayNumber = newDayNumber
+        travelDay.persist()
     }
 
 }

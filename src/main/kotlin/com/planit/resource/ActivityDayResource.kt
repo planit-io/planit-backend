@@ -79,4 +79,15 @@ class ActivityDayResource {
         return activityDayService.markActivityCompleted(travelId, travelDayId, activityId, completed)
     }
 
+    @PUT
+    @Path("/{activityId}/move")
+    fun moveActivity(
+        @PathParam("travelId") travelId: Long,
+        @PathParam("travelDayId") sourceTravelDayId: Long,
+        @PathParam("activityId") activityId: Long,
+        @QueryParam("targetTravelDayId") targetTravelDayId: Long
+    ) {
+        activityDayService.moveActivity(travelId, sourceTravelDayId, activityId, targetTravelDayId)
+    }
+
 }

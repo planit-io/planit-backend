@@ -23,7 +23,6 @@ class Travel : PlanItEntity() {
     @Column(columnDefinition = "DATE")
     var endDate: LocalDate? = null
     var imageUrl: String? = null
-    var days: Int = 1
 
     @OneToMany(cascade = [(CascadeType.ALL)], orphanRemoval = true, mappedBy = "travel")
     @OrderBy("dayNumber ASC")
@@ -49,7 +48,7 @@ class Travel : PlanItEntity() {
         // Calculate delta days between start and end date
         var deltaDays = endDate?.toEpochDay()?.minus(startDate?.toEpochDay() ?: 0) ?: 0
 
-        days = deltaDays.toInt() + 1
+        val days = deltaDays.toInt() + 1
         for (i in 1..days) {
             val travelDay = TravelDay()
             travelDay.dayNumber = i

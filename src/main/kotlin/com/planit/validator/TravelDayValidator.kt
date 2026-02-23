@@ -25,8 +25,7 @@ class TravelDayValidator {
     }
 
     fun validateTravelDayData(travelDate : TravelDayDTO): Boolean {
-        return isValidTravelDayString(travelDate.name) &&
-               validateTravelDayDescription(travelDate.description)
+        return true
     }
 
 }

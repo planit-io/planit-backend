@@ -36,7 +36,6 @@ class TravelService (
             name = travelDTO.name
             startDate = travelDTO.startDate
             endDate = travelDTO.endDate
-            days = travelDTO.days
             imageUrl = travelDTO.imageUrl
         }
         travel.generateCode()
@@ -62,7 +61,7 @@ class TravelService (
             code = travel.code,
             endDate = travel.endDate!!,
             imageUrl = travel.imageUrl,
-            days = travel.days,
+            days = travel.travelDayList.size,
             travelDays = travel.travelDayList.map {TravelDayDTO(
                 id = it.id,
                 dayNumber = it.dayNumber,
@@ -92,7 +91,7 @@ class TravelService (
                 startDate = travel.startDate!!,
                 endDate = travel.endDate!!,
                 imageUrl = travel.imageUrl,
-                days = travel.days,
+                days = travel.travelDayList.size,
                 travelDays = null,
                 createDate = travel.createdDate.toEpochMilli(),
                 lastUpdateDate = travel.lastUpdateDate.toEpochMilli()
@@ -111,7 +110,7 @@ class TravelService (
             startDate = travel.startDate!!,
             endDate = travel.endDate!!,
             imageUrl = travel.imageUrl,
-            days = travel.days,
+            days = travel.travelDayList.size,
             travelDays = travel.travelDayList.map {TravelDayDTO(
                 id = it.id,
                 dayNumber = it.dayNumber,
@@ -159,7 +158,7 @@ class TravelService (
             startDate = travel.startDate!!,
             endDate = travel.endDate!!,
             imageUrl = travel.imageUrl,
-            days = travel.days,
+            days = travel.travelDayList.size,
             travelDays = null,
             createDate = travel.createdDate.toEpochMilli(),
             lastUpdateDate = travel.lastUpdateDate.toEpochMilli()

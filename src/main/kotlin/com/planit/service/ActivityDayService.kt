@@ -138,4 +138,22 @@ class ActivityDayService {
         )
     }
 
+    fun moveActivity(
+        travelId: Long,
+        sourceTravelDayId: Long,
+        activityId: Long,
+        targetTravelDayId: Long
+    ) {
+        val activity = activityDayRepository.find(
+            "travelDay.travel.id = ?1 and travelDay.id = ?2 and id = ?3",
+            travelId, sourceTravelDayId, activityId
+        ).firstResult() ?: throw NotFoundException("Activity not found")
+
+        val targetTravelDay = travelDayRepository.findById(targetTravelDayId)
+            ?: throw NotFoundException("Target Travel Day not found")
+
+        activity.travelDay = targetTravelDay
+        activity.persist()
+    }
+
 }
