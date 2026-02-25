@@ -1,7 +1,9 @@
 package com.planit.service
 
 import com.planit.dto.activity.ActivityDTO
+import com.planit.dto.travelAddress.TravelAddressDTO
 import com.planit.model.entity.Activity
+import com.planit.model.entity.TravelAddress
 import com.planit.repository.ActivityRepository
 import com.planit.repository.TravelRepository
 import com.planit.validator.ActivityValidator
@@ -31,6 +33,17 @@ class ActivityService {
             travel = travelEntity
         }
         activity.persist()
+        if (activityDTO.travelAddress != null) {
+            val travelAddressDTO = activityDTO.travelAddress
+            val travelAddress = TravelAddress()
+                .apply {
+                    address = travelAddressDTO.address
+                    note = travelAddressDTO.note ?: ""
+                    this.activity = activity
+                }
+            activity.travelAddress = travelAddress
+            activity.persist()
+        }
 
         return ActivityDTO(
             id = activity.id!!,
@@ -41,7 +54,18 @@ class ActivityService {
             travelDayId = null,
             time = null,
             createDate = activity.createdDate.toEpochMilli(),
-            lastUpdateDate = activity.lastUpdateDate.toEpochMilli()
+            lastUpdateDate = activity.lastUpdateDate.toEpochMilli(),
+            travelAddress = activity.travelAddress?.let { travelAddress ->
+                TravelAddressDTO(
+                    id = travelAddress.id!!,
+                    address = travelAddress.address,
+                    note = travelAddress.note,
+                    createDate = travelAddress.createdDate.toEpochMilli(),
+                    lastUpdateDate = travelAddress.lastUpdateDate.toEpochMilli(),
+                    activityId = activity.id,
+                    activityDayId = null
+                )
+            }
         )
 
 
@@ -60,7 +84,18 @@ class ActivityService {
                 travelDayId = null,
                 time = null,
                 createDate = activity.createdDate.toEpochMilli(),
-                lastUpdateDate = activity.lastUpdateDate.toEpochMilli()
+                lastUpdateDate = activity.lastUpdateDate.toEpochMilli(),
+                travelAddress = activity.travelAddress?.let { travelAddress ->
+                    TravelAddressDTO(
+                        id = travelAddress.id!!,
+                        address = travelAddress.address,
+                        note = travelAddress.note,
+                        createDate = travelAddress.createdDate.toEpochMilli(),
+                        lastUpdateDate = travelAddress.lastUpdateDate.toEpochMilli(),
+                        activityId = activity.id,
+                        activityDayId = null
+                    )
+                }
             )
         }
     }
@@ -75,6 +110,21 @@ class ActivityService {
         activity.apply {
             name = activityDTO.name
             description = activityDTO.description ?: ""
+            activityDTO.travelAddress?.let { travelAddressDTO ->
+                if (travelAddress == null) {
+                    val newTravelAddress = TravelAddress().apply {
+                        address = travelAddressDTO.address
+                        note = travelAddressDTO.note ?: ""
+                        this.activity = activity
+                    }
+                    this.travelAddress = newTravelAddress
+                } else {
+                    travelAddress?.apply {
+                        address = travelAddressDTO.address
+                        note = travelAddressDTO.note ?: ""
+                    }
+                }
+            }
         }
         activity.persist()
 
@@ -107,7 +157,18 @@ class ActivityService {
             travelDayId = null,
             time = null,
             createDate = activity.createdDate.toEpochMilli(),
-            lastUpdateDate = activity.lastUpdateDate.toEpochMilli()
+            lastUpdateDate = activity.lastUpdateDate.toEpochMilli(),
+            travelAddress = activity.travelAddress?.let { travelAddress ->
+                TravelAddressDTO(
+                    id = travelAddress.id!!,
+                    address = travelAddress.address,
+                    note = travelAddress.note,
+                    createDate = travelAddress.createdDate.toEpochMilli(),
+                    lastUpdateDate = travelAddress.lastUpdateDate.toEpochMilli(),
+                    activityId = activity.id,
+                    activityDayId = null
+                )
+            }
         )
     }
 

@@ -5,6 +5,7 @@ import com.planit.dto.activity.CreateActivityDTO
 import com.planit.dto.activity.UpdateActivityDTO
 import com.planit.mapper.ActivityMapper
 import com.planit.service.ActivityService
+import com.planit.validator.TravelAddressValidator
 import jakarta.enterprise.context.ApplicationScoped
 import jakarta.inject.Inject
 import jakarta.ws.rs.*

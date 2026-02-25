@@ -2,6 +2,7 @@ package com.planit.service
 
 import com.planit.dto.activity.ActivityDTO
 import com.planit.dto.travel.TravelDTO
+import com.planit.dto.travelAddress.TravelAddressDTO
 import com.planit.dto.travelday.TravelDayDTO
 import com.planit.model.entity.TravelDay
 import com.planit.repository.TravelDayRepository
@@ -118,7 +119,18 @@ class TravelDayService {
                             travelDayId = travelDayEntity.id,
                             time = activity.time,
                             createDate = activity.createdDate.toEpochMilli(),
-                            lastUpdateDate = activity.lastUpdateDate.toEpochMilli()
+                            lastUpdateDate = activity.lastUpdateDate.toEpochMilli(),
+                            travelAddress = activity.travelAddress?.let { travelAddress ->
+                                TravelAddressDTO(
+                                    id = travelAddress.id!!,
+                                    address = travelAddress.address,
+                                    note = travelAddress.note,
+                                    createDate = travelAddress.createdDate.toEpochMilli(),
+                                    lastUpdateDate = travelAddress.lastUpdateDate.toEpochMilli(),
+                                    activityId = activity.id,
+                                    activityDayId = travelDayEntity.id
+                                )
+                            }
                         )
                     },
                     createDate = travelDayEntity.createdDate.toEpochMilli(),
@@ -156,7 +168,18 @@ class TravelDayService {
                     time = activityEntity.time,
                     completed = activityEntity.completed,
                     createDate = activityEntity.createdDate.toEpochMilli(),
-                    lastUpdateDate = activityEntity.lastUpdateDate.toEpochMilli()
+                    lastUpdateDate = activityEntity.lastUpdateDate.toEpochMilli(),
+                    travelAddress = activityEntity.travelAddress?.let { travelAddress ->
+                        TravelAddressDTO(
+                            id = travelAddress.id!!,
+                            address = travelAddress.address,
+                            note = travelAddress.note,
+                            createDate = travelAddress.createdDate.toEpochMilli(),
+                            lastUpdateDate = travelAddress.lastUpdateDate.toEpochMilli(),
+                            activityId = activityEntity.id,
+                            activityDayId = travelDayEntity.id
+                        )
+                    }
                 )
             })
     }

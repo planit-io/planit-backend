@@ -1,5 +1,7 @@
 package com.planit.dto.activity
 
+import com.planit.dto.travelAddress.TravelAddressDTO
+
 data class ActivityDTO(
     val id: Long?,
     val travelId: Long?,
@@ -10,4 +12,5 @@ data class ActivityDTO(
     val completed: Boolean = false,
     val createDate: Long?,
     val lastUpdateDate: Long?,
+    val travelAddress: TravelAddressDTO?
 )
