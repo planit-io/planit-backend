@@ -3,6 +3,9 @@ FROM gradle:8.4-jdk21 AS builder
 WORKDIR /workspace
 COPY . /workspace
 
+# Da permessi di esecuzione a gradlew
+RUN chmod +x ./gradlew
+
 # costruisci l'app Quarkus in modalità uber-jar
 RUN ./gradlew build -x test
 
