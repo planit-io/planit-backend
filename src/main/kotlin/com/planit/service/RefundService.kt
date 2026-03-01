@@ -26,6 +26,9 @@ class RefundService {
 
     fun calculateRefunds(travelId: Long): List<CostDTO> {
         val costs = costRepository.find("travel.id", travelId).list()
+        if (costs.isEmpty()) {
+            return emptyList()
+        }
         return costUtils.calculateRefundsAndPayments(costs)
     }
 
